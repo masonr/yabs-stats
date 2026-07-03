@@ -6,7 +6,7 @@
     <title>YABS Usage Statistics</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
-    <link rel="stylesheet" href="/static/style.css" />
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
     <header>
@@ -18,7 +18,7 @@
                         <a href="https://github.com/masonr/yet-another-bench-script" target="_blank" rel="noopener">
                             yet-another-bench-script
                         </a>
-                        &nbsp;·&nbsp; Run counts sourced from Cloudflare analytics for
+                        &nbsp;&middot;&nbsp; Run counts sourced from Cloudflare analytics for
                         <code>yabs.sh</code>
                     </p>
                 </div>
@@ -35,20 +35,20 @@
         <section class="cards" aria-label="Summary statistics">
             <div class="card">
                 <div class="card-label">All-Time Runs</div>
-                <div class="card-value" id="stat-alltime">—</div>
+                <div class="card-value" id="stat-alltime">-</div>
                 <div class="card-since" id="stat-since"></div>
             </div>
             <div class="card">
                 <div class="card-label">Last 30 Days</div>
-                <div class="card-value" id="stat-30d">—</div>
+                <div class="card-value" id="stat-30d">-</div>
             </div>
             <div class="card">
                 <div class="card-label">Last 7 Days</div>
-                <div class="card-value" id="stat-7d">—</div>
+                <div class="card-value" id="stat-7d">-</div>
             </div>
             <div class="card">
                 <div class="card-label">Today</div>
-                <div class="card-value" id="stat-today">—</div>
+                <div class="card-value" id="stat-today">-</div>
             </div>
         </section>
 
@@ -83,7 +83,7 @@
             <section class="chart-section half">
                 <div class="chart-header">
                     <h2>Unique IPs / Day</h2>
-                    <span class="chart-meta" id="ua-meta">Last 30 days · distinct servers</span>
+                    <span class="chart-meta" id="ua-meta">Last 30 days &middot; distinct servers</span>
                 </div>
                 <div class="chart-wrapper">
                     <canvas id="chart-ua" aria-label="Unique IPs per day"></canvas>
@@ -95,7 +95,7 @@
         <section class="chart-section">
             <div class="chart-header">
                 <h2>Activity by Hour (UTC)</h2>
-                <span class="chart-meta" id="hour-dist-meta">Last 30 days · when is YABS most commonly run?</span>
+                <span class="chart-meta" id="hour-dist-meta">Last 30 days &middot; when is YABS most commonly run?</span>
             </div>
             <div class="chart-wrapper">
                 <canvas id="chart-hour-dist" aria-label="Requests by UTC hour"></canvas>
@@ -107,13 +107,13 @@
     <footer>
         <div class="container">
             <span id="last-updated" class="footer-text"></span>
-            <span class="footer-sep">·</span>
+            <span class="footer-sep">&middot;</span>
             <a href="https://github.com/masonr/yet-another-bench-script" target="_blank" rel="noopener" class="footer-link">
                 GitHub
             </a>
         </div>
     </footer>
 
-    <script src="/static/app.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>

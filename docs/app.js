@@ -27,12 +27,14 @@ const TOOLTIP_STYLE = {
     borderWidth: 1,
 };
 
+const STATS = fetchJSON('data/stats.json');
+
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
 
 function fmt(n) {
-    if (n === null || n === undefined) return '—';
+    if (n === null || n === undefined) return '-';
     if (n >= 1_000_000) return (n / 1_000_000).toFixed(1) + 'M';
     if (n >= 1_000)     return (n / 1_000).toFixed(1) + 'K';
     return n.toLocaleString();
@@ -44,24 +46,62 @@ async function fetchJSON(url) {
     return res.json();
 }
 
+function latestDate(rows, field) {
+    if (!rows.length) return null;
+    return rows[rows.length - 1][field].slice(0, 10);
+}
+
+function filterDaily(history, days) {
+    if (!days) return history;
+    if (!history.length) return [];
+
+    const end = new Date(`${latestDate(history, 'date')}T00:00:00Z`);
+    const start = new Date(end);
+    start.setUTCDate(start.getUTCDate() - days + 1);
+
+    return history.filter(row => new Date(`${row.date}T00:00:00Z`) >= start);
+}
+
+function filterHourly(hourly, days) {
+    if (!days) return hourly;
+    if (!hourly.length) return [];
+
+    const end = new Date(hourly[hourly.length - 1].datetime);
+    const start = new Date(end);
+    start.setUTCDate(start.getUTCDate() - days);
+
+    return hourly.filter(row => new Date(row.datetime) >= start);
+}
+
+function hourlyDistribution(hourly) {
+    const totals = Array.from({ length: 24 }, (_, hour) => ({ hour, requests: 0 }));
+
+    hourly.forEach(row => {
+        const hour = new Date(row.datetime).getUTCHours();
+        totals[hour].requests += row.requests || 0;
+    });
+
+    return totals;
+}
+
 // ---------------------------------------------------------------------------
 // Summary cards
 // ---------------------------------------------------------------------------
 
 async function loadSummary() {
-    const d = await fetchJSON('/api/stats/summary');
+    const d = (await STATS).summary;
 
-    document.getElementById('stat-alltime').textContent = fmt(d.total_requests);
-    document.getElementById('stat-30d').textContent     = fmt(d.last_30d_requests);
-    document.getElementById('stat-7d').textContent      = fmt(d.last_7d_requests);
-    document.getElementById('stat-today').textContent   = fmt(d.today_requests);
+    document.getElementById('stat-alltime').textContent = fmt(d.all_time);
+    document.getElementById('stat-30d').textContent     = fmt(d.last30);
+    document.getElementById('stat-7d').textContent      = fmt(d.last7);
+    document.getElementById('stat-today').textContent   = fmt(d.today);
 
-    if (d.data_since) {
-        document.getElementById('stat-since').textContent = `Since ${d.data_since}`;
+    if (d.since) {
+        document.getElementById('stat-since').textContent = `Since ${d.since}`;
     }
 
-    if (d.last_updated) {
-        const dt = new Date(d.last_updated);
+    if (d.updated) {
+        const dt = new Date(d.updated);
         document.getElementById('last-updated').textContent =
             'Data as of ' + dt.toUTCString();
     }
@@ -74,11 +114,10 @@ async function loadSummary() {
 let dailyChart = null;
 
 async function loadDailyChart(days) {
-    const data = await fetchJSON(`/api/stats/daily?days=${days}`);
+    const data = filterDaily((await STATS).history, days);
 
     if (dailyChart) { dailyChart.destroy(); dailyChart = null; }
 
-    // For 'All', use month-level x-axis ticks; otherwise scale by range
     const xUnit = days === 0 || days > 365 ? 'month' : days <= 30 ? 'day' : days <= 90 ? 'week' : 'month';
     const dotRadius = (days > 0 && days <= 30) ? 3 : 0;
 
@@ -108,21 +147,14 @@ async function loadDailyChart(days) {
                 legend: { display: false },
                 tooltip: {
                     ...TOOLTIP_STYLE,
-                    callbacks: {
-                        label: ctx => {
-                            const ds = ctx.dataset.label;
-                            return ds === 'Unique IPs'
-                                ? ` ${ctx.parsed.y.toLocaleString()} unique IPs`
-                                : ` ${ctx.parsed.y.toLocaleString()} runs`;
-                        },
-                    },
+                    callbacks: { label: ctx => ` ${ctx.parsed.y.toLocaleString()} runs` },
                 },
             },
             scales: {
                 x: {
                     type: 'time',
                     time: {
-                        unit: days <= 30 ? 'day' : days <= 90 ? 'week' : 'month',
+                        unit: xUnit,
                         displayFormats: { day: 'MMM d', week: 'MMM d', month: 'MMM yyyy' },
                     },
                     grid: { color: C.border },
@@ -145,19 +177,18 @@ async function loadDailyChart(days) {
 let countriesChart = null;
 
 async function loadCountriesChart(days) {
-    const data = await fetchJSON(`/api/stats/countries?days=${days}`);
-    const top  = data.slice(0, 15);
+    const top = (await STATS).countries.slice(0, 15);
 
     if (countriesChart) { countriesChart.destroy(); countriesChart = null; }
 
     document.getElementById('countries-meta').textContent =
-        days === 0 ? 'All time' : `Last ${days} days`;
+        days === 0 ? 'Recent usage' : `Recent usage`;
 
     const ctx = document.getElementById('chart-countries').getContext('2d');
     countriesChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: top.map(d => d.country_code),
+            labels: top.map(d => d.country_code || d.country),
             datasets: [{
                 label: 'Runs',
                 data: top.map(d => d.requests),
@@ -189,18 +220,18 @@ async function loadCountriesChart(days) {
 }
 
 // ---------------------------------------------------------------------------
-// Unique IPs / Day line chart  (replaces the Run Method doughnut)
+// Unique IPs / Day line chart
 // ---------------------------------------------------------------------------
 
 let uaChart = null;
 
 async function loadUAChart(days) {
-    const data = await fetchJSON(`/api/stats/daily?days=${days}`);
+    const data = filterDaily((await STATS).history, days);
 
     if (uaChart) { uaChart.destroy(); uaChart = null; }
 
     document.getElementById('ua-meta').textContent =
-        (days === 0 ? 'All time' : `Last ${days} days`) + ' \u00b7 distinct servers';
+        (days === 0 ? 'All time' : `Last ${days} days`) + ' - distinct servers';
 
     const dotRadius = (days > 0 && days <= 30) ? 3 : 0;
     const xUnit = days === 0 || days > 365 ? 'month' : days <= 30 ? 'day' : days <= 90 ? 'week' : 'month';
@@ -231,9 +262,7 @@ async function loadUAChart(days) {
                 legend: { display: false },
                 tooltip: {
                     ...TOOLTIP_STYLE,
-                    callbacks: {
-                        label: ctx => ` ${ctx.parsed.y.toLocaleString()} unique IPs`,
-                    },
+                    callbacks: { label: ctx => ` ${ctx.parsed.y.toLocaleString()} unique IPs` },
                 },
             },
             scales: {
@@ -263,24 +292,17 @@ async function loadUAChart(days) {
 let hourDistChart = null;
 
 async function loadHourDistChart(days = 30) {
-    // Cap at 365; 'All' falls back to 365 since the dist is based on stats_hour which
-    // doesn't accumulate indefinitely in the same way as stats_day.
-    const effectiveDays = days === 0 ? 365 : Math.min(days, 365);
-    const resp = await fetchJSON(`/api/stats/hourly-distribution?days=${effectiveDays}`);
-    const points = resp.data;
+    const hourly = filterHourly((await STATS).hourly, days || 365);
+    const points = hourlyDistribution(hourly);
 
-    // Build an honest subtitle: show the actual date range of hourly data used
-    let subtitle;
-    if (resp.hours_of_data === 0) {
-        subtitle = 'No hourly data yet';
-    } else if (resp.data_from && resp.data_to) {
-        const from = resp.data_from.slice(0, 10);
-        const to   = resp.data_to.slice(0, 10);
-        subtitle = `Based on ${resp.hours_of_data} hrs of data (${from} \u2013 ${to})`;
+    if (!hourly.length) {
+        document.getElementById('hour-dist-meta').textContent = 'No hourly data yet';
     } else {
-        subtitle = `Last ${effectiveDays} days \u00b7 when is YABS most commonly run?`;
+        const from = hourly[0].datetime.slice(0, 10);
+        const to = hourly[hourly.length - 1].datetime.slice(0, 10);
+        document.getElementById('hour-dist-meta').textContent =
+            `Based on ${hourly.length} hrs of data (${from} - ${to})`;
     }
-    document.getElementById('hour-dist-meta').textContent = subtitle;
 
     if (hourDistChart) { hourDistChart.destroy(); hourDistChart = null; }
 
@@ -294,7 +316,7 @@ async function loadHourDistChart(days = 30) {
                 data: points.map(d => d.requests),
                 backgroundColor: (() => {
                     const max = Math.max(...points.map(x => x.requests));
-                    return points.map(d => d.requests === max ? C.green : C.accent);
+                    return points.map(d => d.requests === max && max > 0 ? C.green : C.accent);
                 })(),
                 borderRadius: 3,
                 borderSkipped: false,
@@ -331,7 +353,7 @@ async function loadHourDistChart(days = 30) {
 }
 
 // ---------------------------------------------------------------------------
-// Range button wiring — updates all four range-sensitive charts
+// Range button wiring
 // ---------------------------------------------------------------------------
 
 document.querySelectorAll('.range-btn').forEach(btn => {
