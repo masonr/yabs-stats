@@ -22,7 +22,7 @@ class CloudflareClient:
 
     def __init__(self) -> None:
         token = os.environ["CF_API_TOKEN"]
-        self.zone = os.environ["CF_ZONE_ID"]
+        self.zone = os.environ.get("CF_ZONE_ID") or os.environ["CF_ZONE_TAG"]
         self.session = requests.Session()
         self.session.headers.update(
             {

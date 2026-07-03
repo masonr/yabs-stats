@@ -8,6 +8,7 @@ small JSON document for the browser.
 from __future__ import annotations
 
 import json
+import os
 from collections import defaultdict
 from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
@@ -18,6 +19,7 @@ from cloudflare import CloudflareClient
 ROOT = Path(__file__).parent.parent
 DATA_DIR = ROOT / "docs" / "data"
 STATS_PATH = DATA_DIR / "stats.json"
+ENV_PATH = ROOT / ".env"
 
 COUNTRY_WINDOW_DAYS = 30
 # Cloudflare Free analytics rejects ranges wider than 52w1d1h. Since the query
@@ -27,8 +29,22 @@ DAILY_WINDOW_DAYS = 364
 # Cloudflare only exposes hourly data for about 3 days on this plan.
 HOURLY_WINDOW_DAYS = 3
 HOURLY_BATCH_DAYS = 3
-ACTIVITY_WINDOW_DAYS = 30
+# Cloudflare only exposes adaptive/request-source data for about 1 week here.
+ACTIVITY_WINDOW_DAYS = 7
 ACTIVITY_BATCH_DAYS = 1
+
+def load_dotenv() -> None:
+    """Load local .env values without adding a dependency."""
+    if not ENV_PATH.exists():
+        return
+
+    for line in ENV_PATH.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+
+        key, value = line.split("=", 1)
+        os.environ.setdefault(key.strip(), value.strip().strip("\"'"))
 
 def load_existing_stats() -> dict[str, Any]:
     """Load the current static database, if it exists."""
@@ -222,6 +238,8 @@ def fetch_in_batches(
     return rows
 
 def main() -> None:
+    load_dotenv()
+
     now = datetime.now(UTC).replace(microsecond=0)
     tomorrow = now + timedelta(days=1)
     print(f"Fetching statistics at {now.isoformat()}")
