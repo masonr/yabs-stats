@@ -11,7 +11,7 @@ import json
 from collections import defaultdict
 from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
 from cloudflare import CloudflareClient
 
@@ -25,7 +25,9 @@ COUNTRY_WINDOW_DAYS = 30
 # 364 days back for a 365-calendar-day fetch.
 DAILY_WINDOW_DAYS = 364
 HOURLY_WINDOW_DAYS = 14
+HOURLY_BATCH_DAYS = 3
 ACTIVITY_WINDOW_DAYS = 30
+ACTIVITY_BATCH_DAYS = 7
 
 def load_existing_stats() -> dict[str, Any]:
     """Load the current static database, if it exists."""
@@ -199,6 +201,23 @@ def build_stats(
         "activity": activity_summary(activity_rows),
     }
 
+def fetch_in_batches(
+    fetch: Callable[[datetime, datetime], list[dict[str, Any]]],
+    start: datetime,
+    end: datetime,
+    batch_size: timedelta,
+) -> list[dict[str, Any]]:
+    """Fetch a Cloudflare time range in quota-safe chunks."""
+    rows: list[dict[str, Any]] = []
+    cursor = start
+
+    while cursor < end:
+        batch_end = min(cursor + batch_size, end)
+        rows.extend(fetch(cursor, batch_end))
+        cursor = batch_end
+
+    return rows
+
 def main() -> None:
     now = datetime.now(UTC).replace(microsecond=0)
     tomorrow = now + timedelta(days=1)
@@ -206,8 +225,18 @@ def main() -> None:
 
     client = CloudflareClient()
     daily_rows = client.daily(now - timedelta(days=DAILY_WINDOW_DAYS), tomorrow)
-    hourly_rows = client.hourly(now - timedelta(days=HOURLY_WINDOW_DAYS), now)
-    activity_rows = client.activity(now - timedelta(days=ACTIVITY_WINDOW_DAYS), tomorrow)
+    hourly_rows = fetch_in_batches(
+        client.hourly,
+        now - timedelta(days=HOURLY_WINDOW_DAYS),
+        now,
+        timedelta(days=HOURLY_BATCH_DAYS),
+    )
+    activity_rows = fetch_in_batches(
+        client.activity,
+        now - timedelta(days=ACTIVITY_WINDOW_DAYS),
+        tomorrow,
+        timedelta(days=ACTIVITY_BATCH_DAYS),
+    )
 
     print(f"Downloaded {len(daily_rows)} daily rows")
     print(f"Downloaded {len(hourly_rows)} hourly rows")
