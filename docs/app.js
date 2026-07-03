@@ -84,6 +84,25 @@ function hourlyDistribution(hourly) {
     return totals;
 }
 
+function countryTotals(history) {
+    const totals = new Map();
+
+    history.forEach(day => {
+        (day.countries || []).forEach(country => {
+            const code = country.country || country.country_code || 'Unknown';
+            totals.set(code, (totals.get(code) || 0) + (country.requests || 0));
+        });
+    });
+
+    return Array.from(totals.entries())
+        .map(([country, requests]) => ({
+            country,
+            country_code: country,
+            requests,
+        }))
+        .sort((a, b) => b.requests - a.requests);
+}
+
 // ---------------------------------------------------------------------------
 // Summary cards
 // ---------------------------------------------------------------------------
@@ -177,12 +196,14 @@ async function loadDailyChart(days) {
 let countriesChart = null;
 
 async function loadCountriesChart(days) {
-    const top = (await STATS).countries.slice(0, 15);
+    const stats = await STATS;
+    const ranged = countryTotals(filterDaily(stats.history, days));
+    const top = (ranged.length ? ranged : stats.countries).slice(0, 15);
 
     if (countriesChart) { countriesChart.destroy(); countriesChart = null; }
 
     document.getElementById('countries-meta').textContent =
-        days === 0 ? 'Recent usage' : `Recent usage`;
+        days === 0 ? 'All time' : `Last ${days} days`;
 
     const ctx = document.getElementById('chart-countries').getContext('2d');
     countriesChart = new Chart(ctx, {

@@ -144,6 +144,8 @@ main {
 }
 
 .chart-section.half {
+    display: flex;
+    flex-direction: column;
     flex: 1;
     min-width: 0;
     margin-bottom: 0;
@@ -214,6 +216,15 @@ main {
 .chart-wrapper               { position: relative; height: 280px; }
 .chart-wrapper--bar          { height: 340px; }
 .chart-wrapper--doughnut     { height: 300px; }
+.chart-section.half .chart-wrapper {
+    flex: 1;
+    min-height: 340px;
+}
+.chart-wrapper canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+}
 
 /* ── Bottom row ──────────────────────────────────────────── */
 .charts-row {

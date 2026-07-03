@@ -46,7 +46,10 @@ class CloudflareClient:
             timeout=60,
         )
 
-        response.raise_for_status()
+        try:
+            response.raise_for_status()
+        except requests.HTTPError as exc:
+            raise RuntimeError(f"Cloudflare HTTP {response.status_code}: {response.text}") from exc
 
         payload = response.json()
 

@@ -75,6 +75,13 @@ def daily_history(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 "requests": int(totals.get("requests", 0)),
                 "unique_ips": int(unique.get("uniques", 0)),
                 "bytes": int(totals.get("bytes", 0)),
+                "countries": [
+                    {
+                        "country": country.get("clientCountryName") or "Unknown",
+                        "requests": int(country.get("requests", 0)),
+                    }
+                    for country in totals.get("countryMap", [])
+                ],
             }
         )
 
@@ -89,21 +96,22 @@ def merge_history(
     by_date.update({row["date"]: row for row in fresh})
     return [by_date[key] for key in sorted(by_date)]
 
-def recent_countries(
-    daily_rows: list[dict[str, Any]],
+def country_totals(
+    history: list[dict[str, Any]],
     today: date,
+    days: int,
 ) -> list[dict[str, Any]]:
-    """Aggregate country usage from the recent daily Cloudflare window."""
-    cutoff = today - timedelta(days=COUNTRY_WINDOW_DAYS - 1)
+    """Aggregate country usage from daily history."""
+    cutoff = today - timedelta(days=days - 1)
     totals: defaultdict[str, int] = defaultdict(int)
 
-    for row in daily_rows:
-        row_date = date.fromisoformat(row["dimensions"]["date"])
+    for row in history:
+        row_date = date.fromisoformat(row["date"])
         if row_date < cutoff:
             continue
 
-        for country in row.get("sum", {}).get("countryMap", []):
-            name = country.get("clientCountryName") or "Unknown"
+        for country in row.get("countries", []):
+            name = country.get("country") or "Unknown"
             totals[name] += int(country.get("requests", 0))
 
     return [
@@ -213,7 +221,7 @@ def build_stats(
         "generated": now.isoformat().replace("+00:00", "Z"),
         "summary": build_summary(history, now),
         "history": history,
-        "countries": recent_countries(daily_rows, now.date()),
+        "countries": country_totals(history, now.date(), COUNTRY_WINDOW_DAYS),
         "hourly": hourly_history(hourly_rows),
         "activity": activity_summary(activity_rows),
     }
