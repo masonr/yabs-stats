@@ -28,7 +28,7 @@ DAILY_WINDOW_DAYS = 364
 HOURLY_WINDOW_DAYS = 3
 HOURLY_BATCH_DAYS = 3
 ACTIVITY_WINDOW_DAYS = 30
-ACTIVITY_BATCH_DAYS = 7
+ACTIVITY_BATCH_DAYS = 1
 
 def load_existing_stats() -> dict[str, Any]:
     """Load the current static database, if it exists."""
@@ -203,6 +203,7 @@ def build_stats(
     }
 
 def fetch_in_batches(
+    label: str,
     fetch: Callable[[datetime, datetime], list[dict[str, Any]]],
     start: datetime,
     end: datetime,
@@ -214,6 +215,7 @@ def fetch_in_batches(
 
     while cursor < end:
         batch_end = min(cursor + batch_size, end)
+        print(f"Fetching {label}: {cursor.isoformat()} to {batch_end.isoformat()}")
         rows.extend(fetch(cursor, batch_end))
         cursor = batch_end
 
@@ -227,12 +229,14 @@ def main() -> None:
     client = CloudflareClient()
     daily_rows = client.daily(now - timedelta(days=DAILY_WINDOW_DAYS), tomorrow)
     hourly_rows = fetch_in_batches(
+        "hourly",
         client.hourly,
         now - timedelta(days=HOURLY_WINDOW_DAYS),
         now,
         timedelta(days=HOURLY_BATCH_DAYS),
     )
     activity_rows = fetch_in_batches(
+        "activity",
         client.activity,
         now - timedelta(days=ACTIVITY_WINDOW_DAYS),
         tomorrow,
