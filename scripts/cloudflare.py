@@ -50,10 +50,14 @@ class CloudflareClient:
 
         payload = response.json()
 
-        if "errors" in payload:
+        if payload.get("errors"):
             raise RuntimeError(payload["errors"])
 
-        return payload["data"]
+        data = payload.get("data")
+        if data is None:
+            raise RuntimeError(f"Cloudflare response did not include data: {payload}")
+
+        return data
 
     def zone_groups(self, data: dict[str, Any], group_name: str) -> list[dict[str, Any]]:
         """Extract a zone group list from a Cloudflare GraphQL response."""
