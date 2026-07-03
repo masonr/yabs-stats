@@ -20,7 +20,10 @@ DATA_DIR = ROOT / "docs" / "data"
 STATS_PATH = DATA_DIR / "stats.json"
 
 COUNTRY_WINDOW_DAYS = 30
-DAILY_WINDOW_DAYS = 365
+# Cloudflare Free analytics rejects ranges wider than 52w1d1h. Since the query
+# uses an exclusive end date of tomorrow to include today's partial data, start
+# 364 days back for a 365-calendar-day fetch.
+DAILY_WINDOW_DAYS = 364
 HOURLY_WINDOW_DAYS = 14
 ACTIVITY_WINDOW_DAYS = 30
 
