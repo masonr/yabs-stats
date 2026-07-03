@@ -24,7 +24,8 @@ COUNTRY_WINDOW_DAYS = 30
 # uses an exclusive end date of tomorrow to include today's partial data, start
 # 364 days back for a 365-calendar-day fetch.
 DAILY_WINDOW_DAYS = 364
-HOURLY_WINDOW_DAYS = 14
+# Cloudflare only exposes hourly data for about 3 days on this plan.
+HOURLY_WINDOW_DAYS = 3
 HOURLY_BATCH_DAYS = 3
 ACTIVITY_WINDOW_DAYS = 30
 ACTIVITY_BATCH_DAYS = 7
