@@ -1,8 +1,8 @@
-# [yabs-stats](https://masonr.github.io/yabs-stats/)
+# [yabs-stats](https://stats.yabs.sh/)
 
 Static usage statistics for [YABS](https://github.com/masonr/yet-another-bench-script), generated from Cloudflare Analytics and published with GitHub Pages.
 
-Dashboard: https://masonr.github.io/yabs-stats/
+Dashboard: https://stats.yabs.sh/
 
 YABS is commonly run with:
 
