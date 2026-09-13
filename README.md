@@ -40,6 +40,7 @@ docs/style.css                Dashboard styles
 docs/data/stats.json          Static JSON data consumed by the browser
 scripts/cloudflare.py         Tiny Cloudflare GraphQL client
 scripts/update_stats.py       Stats fetch, merge, and generation script
+scripts/diagnose.py           Read-only per-day traffic source breakdown
 requirements.txt              Python dependencies
 ```
 
@@ -52,6 +53,25 @@ requirements.txt              Python dependencies
 - `countries`: recent country totals for compatibility and initial display
 - `hourly`: recent rolling hourly data
 - `activity`: recent Cloudflare request-source totals
+- `excluded`: per-day totals of filtered non-run traffic and flagged client IPs
+
+## What counts as a run
+
+A run is a request that would receive the script. The `yabs.sh` edge redirect
+only serves the script to user agents containing `curl` or `Wget` and sends
+everything else to the GitHub repo page, so non-matching requests are
+measured via `httpRequestsAdaptiveGroups` and subtracted from the daily and
+hourly rollups. Two more rules catch abuse that fakes its user agent:
+
+- any client IP making more than `FLOOD_REQS_PER_DAY` requests in a day is
+  excluded entirely for that day
+- IPs listed in `BLOCKED_IPS` in `scripts/update_stats.py` are excluded at
+  any volume
+
+Exclusions are recomputed from adaptive analytics on every run, so each day
+is corrected while it remains inside Cloudflare's ~1 week adaptive window.
+Run `python scripts/diagnose.py` to see the per-day breakdown that would be
+applied.
 
 Cloudflare plan limits control how far back each API can read. Daily history has the longest retention; hourly and request-source data are short rolling windows. Once daily history is written to `stats.json`, future runs preserve it even after Cloudflare no longer exposes that day.
 

@@ -10,12 +10,33 @@ No framework.
 """
 
 from __future__ import annotations
+import json
 import os
 from datetime import datetime
 from typing import Any
 import requests
 
 GRAPHQL_URL = "https://api.cloudflare.com/client/v4/graphql"
+
+def _gql_value(value: Any) -> str:
+    """Serialize a Python value as a GraphQL input literal."""
+    if isinstance(value, bool):
+        return "true" if value else "false"
+    if isinstance(value, (int, float)):
+        return str(value)
+    if isinstance(value, (list, tuple)):
+        return "[" + ", ".join(_gql_value(v) for v in value) + "]"
+    if isinstance(value, dict):
+        return "{" + ", ".join(
+            f"{key}: {_gql_value(v)}" for key, v in value.items()
+        ) + "}"
+    return json.dumps(value)
+
+def _gql_filter(filter_obj: dict[str, Any]) -> str:
+    """Serialize a dict as a GraphQL filter input object."""
+    return "{" + ", ".join(
+        f"{key}: {_gql_value(value)}" for key, value in filter_obj.items()
+    ) + "}"
 
 class CloudflareClient:
     """Tiny Cloudflare GraphQL client for the updater script."""
@@ -120,6 +141,53 @@ class CloudflareClient:
 
         return self.zone_groups(result, "httpRequestsAdaptiveGroups")
 
+    def adaptive_groups(
+        self,
+        dimensions: list[str],
+        filter_obj: dict[str, Any],
+        limit: int = 10000,
+    ) -> list[dict[str, Any]]:
+        """Fetch httpRequestsAdaptiveGroups with arbitrary dimensions/filters.
+
+        Used to break traffic down by clientIP, userAgent, device type, or
+        hour so that non-run traffic can be measured and excluded. This plan
+        only allows time ranges up to 1 day wide per query.
+        """
+        dims = " ".join(dimensions)
+        result = self.query(
+            ADAPTIVE_QUERY
+            .replace("__DIMENSIONS__", dims)
+            .replace("__FILTER__", _gql_filter(filter_obj))
+            .replace("__LIMIT__", str(limit)),
+            {"zoneTag": self.zone},
+        )
+
+        return self.zone_groups(result, "httpRequestsAdaptiveGroups")
+
+
+ADAPTIVE_QUERY = r"""
+query FetchAdaptive($zoneTag: string) {
+  viewer {
+    zones(filter: { zoneTag: $zoneTag }) {
+      httpRequestsAdaptiveGroups(
+        orderBy: [count_DESC]
+        limit: __LIMIT__
+        filter: __FILTER__
+      ) {
+        count
+
+        sum {
+          edgeResponseBytes
+        }
+
+        dimensions {
+          __DIMENSIONS__
+        }
+      }
+    }
+  }
+}
+"""
 
 DAILY_QUERY = r"""
 query FetchDayStats($zoneTag: string, $start: Date, $end: Date) {
