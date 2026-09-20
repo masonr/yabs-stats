@@ -112,10 +112,24 @@ def daily_history(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
 def merge_history(
     existing: list[dict[str, Any]],
     fresh: list[dict[str, Any]],
+    editable_after: str | None = None,
 ) -> list[dict[str, Any]]:
-    """Merge daily history by date without discarding older local records."""
+    """Merge daily history by date without discarding older local records.
+
+    Fresh rollups count every request, including non-run traffic that can
+    only be measured and subtracted while a day is still inside the
+    adaptive retention window. Once a day ages out of that window its
+    stored (already corrected) row must win, otherwise the next run would
+    re-taint it with raw totals.
+    """
     by_date = {row["date"]: row for row in existing if "date" in row}
-    by_date.update({row["date"]: row for row in fresh})
+    for row in fresh:
+        day = row.get("date")
+        if day is None:
+            continue
+        if editable_after is not None and day < editable_after and day in by_date:
+            continue
+        by_date[day] = row
     return [by_date[key] for key in sorted(by_date)]
 
 def country_totals(
@@ -192,17 +206,21 @@ def run_ua_filter() -> dict[str, Any]:
 def daily_exclusions(
     client: CloudflareClient,
     today: date,
-) -> tuple[dict[str, dict[str, Any]], set[str]]:
+) -> tuple[dict[str, dict[str, Any]], set[str], set[str]]:
     """Measure non-run traffic per day from adaptive analytics.
 
     A request counts as a run when its user agent would get the script at
     the edge and its client IP is not flagged. Returns (exclusions,
-    flagged_ips) where exclusions maps an ISO date string to {"requests",
-    "bytes", "countries", "ips"} and flagged_ips is every client IP flagged
-    as a flood or on the blocklist during the window.
+    flagged_ips, covered) where exclusions maps an ISO date string to
+    {"requests", "bytes", "countries", "ips"}, flagged_ips is every client
+    IP flagged as a flood or on the blocklist during the window, and
+    covered is the set of ISO dates the adaptive dataset actually returned
+    data for. Days outside covered cannot be corrected, so their stored
+    rows must be preserved.
     """
     exclusions: dict[str, dict[str, Any]] = {}
     flagged_ips: set[str] = set(BLOCKED_IPS)
+    covered: set[str] = set()
 
     for back in range(EXCLUSION_WINDOW_DAYS - 1, -1, -1):
         day = today - timedelta(days=back)
@@ -212,6 +230,8 @@ def daily_exclusions(
         }
 
         groups = client.adaptive_groups(["clientIP", "clientCountryName"], window)
+        if groups:
+            covered.add(day.isoformat())
 
         per_ip: defaultdict[str, int] = defaultdict(int)
         totals = {"requests": 0, "bytes": 0, "countries": defaultdict(int)}
@@ -255,7 +275,7 @@ def daily_exclusions(
         if entry["requests"]:
             exclusions[day.isoformat()] = entry
 
-    return exclusions, flagged_ips
+    return exclusions, flagged_ips, covered
 
 def hourly_exclusions(
     client: CloudflareClient,
@@ -391,12 +411,14 @@ def build_stats(
     daily_excl: dict[str, dict[str, Any]],
     hourly_excl: dict[str, dict[str, Any]],
     flagged_ips: set[str],
+    editable_after: str,
     now: datetime,
 ) -> dict[str, Any]:
     """Build the complete static data document."""
     history = merge_history(
         existing.get("history", []),
         daily_history(daily_rows),
+        editable_after,
     )
     apply_daily_exclusions(history, daily_excl)
 
@@ -465,13 +487,22 @@ def main() -> None:
     print(f"Downloaded {len(hourly_rows)} hourly rows")
     print(f"Downloaded {len(activity_rows)} activity rows")
 
-    daily_excl, flagged_ips = daily_exclusions(client, now.date())
+    daily_excl, flagged_ips, covered = daily_exclusions(client, now.date())
     hourly_excl = hourly_exclusions(client, now.date(), flagged_ips)
     excluded_total = sum(entry["requests"] for entry in daily_excl.values())
     print(
         f"Excluded {excluded_total} non-run requests across "
         f"{len(daily_excl)} days ({len(flagged_ips)} flagged IPs)"
     )
+
+    # Fresh daily rollups are only safe to adopt for days the adaptive
+    # dataset covered; anything older keeps its stored corrected values.
+    # If adaptive returned nothing at all, freeze all existing rows.
+    if covered:
+        editable_after = min(covered)
+    else:
+        editable_after = (now.date() + timedelta(days=1)).isoformat()
+    print(f"Daily history writable from {editable_after} onward")
 
     stats = build_stats(
         load_existing_stats(),
@@ -481,6 +512,7 @@ def main() -> None:
         daily_excl,
         hourly_excl,
         flagged_ips,
+        editable_after,
         now,
     )
 
