@@ -1,0 +1,46 @@
+# ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## #
+#              Yet-Another-Bench-Script              #
+#                     v2026-10-31                    #
+# https://github.com/masonr/yet-another-bench-script #
+# ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## #
+
+Sun Mar  9 18:22:41 UTC 2026
+
+Basic System Information:
+---------------------------------
+Uptime     : 5 days, 9 hours, 47 minutes
+Processor  : Intel Xeon E5-2680 v4
+CPU cores  : 2 @ 2399.998 MHz
+AES-NI     : ✔ Enabled
+VM-x/AMD-V : ❌ Disabled
+RAM        : 3.9 GiB
+Swap       : 1.0 GiB
+Disk       : 48.0 GiB
+Distro     : Ubuntu 22.04.4 LTS
+Kernel     : 5.15.0-91-generic
+VM Type    : KVM
+IPv4/IPv6  : ✔ Online / ❌ Offline
+
+fio Disk Speed Tests (Mixed R/W 50/50) (Partition /dev/sda2):
+---------------------------------
+Block Size | 4k            (IOPS) | 64k           (IOPS)
+  ------   | ---            ----  | ----           ----
+Read       | 46.38 MB/s   (11.5k) | 153.00 MB/s    (2.3k)
+Write      | 46.38 MB/s   (11.6k) | 153.00 MB/s    (2.4k)
+Total      | 92.76 MB/s   (23.1k) | 306.00 MB/s    (4.7k)
+           |                      |
+Block Size | 512k          (IOPS) | 1m            (IOPS)
+  ------   | ---            ----  | ----           ----
+Read       | 80.50 MB/s     (157) | 69.50 MB/s      (67)
+Write      | 80.50 MB/s     (157) | 69.50 MB/s      (68)
+Total      | 161.00 MB/s    (314) | 139.00 MB/s    (135)
+
+Geekbench 6 Benchmark Test:
+---------------------------------
+Test            | Value
+                |
+Single Core     | 900
+Multi Core      | 850
+Full Test       | https://browser.geekbench.com/v6/cpu/7654321
+
+YABS completed in 8 min 3 sec

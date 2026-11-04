@@ -1,0 +1,40 @@
+# ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## #
+#              Yet-Another-Bench-Script              #
+#                     v2026-10-31                    #
+# https://github.com/masonr/yet-another-bench-script #
+# ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## #
+
+Mon Oct 12 19:44:02 UTC 2026
+
+Basic System Information:
+---------------------------------
+Uptime     : 1 days, 6 hours, 12 minutes
+Processor  : Intel Xeon E5-2650 v2
+CPU cores  : 1 @ 2599.998 MHz
+AES-NI     : ✔ Enabled
+VM-x/AMD-V : ❌ Disabled
+RAM        : 976.6 MiB
+Swap       : 0.0 KiB
+Disk       : 19.4 GiB
+Distro     : Debian GNU/Linux 12 (bookworm)
+Kernel     : 6.1.0-18-amd64
+VM Type    : KVM
+IPv4/IPv6  : ✔ Online / ❌ Offline
+
+fio Disk Speed Tests (Mixed R/W 50/50) (Partition /dev/vda1):
+---------------------------------
+Block Size | 4k            (IOPS) | 64k           (IOPS)
+  ------   | ---            ----  | ----           ----
+Read       | 18.20 MB/s    (4.5k) | 190.40 MB/s   (2.9k)
+Write      | 18.35 MB/s    (4.6k) | 192.10 MB/s   (3.0k)
+Total      | 36.55 MB/s    (9.1k) | 382.50 MB/s   (5.9k)
+           |                      |
+Block Size | 512k          (IOPS) | 1m            (IOPS)
+  ------   | ---            ----  | ----           ----
+Read       | 460.20 MB/s    (899) | 501.10 MB/s    (490)
+Write      | 478.80 MB/s    (936) | 519.30 MB/s    (508)
+Total      | 939.00 MB/s   (1.8k) | 1.02 GB/s      (998)
+
+Geekbench test failed and low memory was detected. Add at least 1GB of SWAP or use GB4 instead (higher compatibility with low memory systems).
+
+YABS completed in 4 min 58 sec

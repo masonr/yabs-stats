@@ -1,0 +1,38 @@
+# ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## #
+#              Yet-Another-Bench-Script              #
+#                     v2026-10-31                    #
+# https://github.com/masonr/yet-another-bench-script #
+# ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## #
+
+Tue Apr 14 09:15:02 UTC 2026
+
+Basic System Information:
+---------------------------------
+Uptime     : 88 days, 16 hours, 3 minutes
+Processor  : Intel Xeon E5-2650 v2
+CPU cores  : 2 @ 2600.000 MHz
+AES-NI     : ✔ Enabled
+VM-x/AMD-V : ❌ Disabled
+RAM        : 1.0 GiB
+Swap       : 0.0 KiB
+Disk       : 1.9 TiB
+Distro     : Debian GNU/Linux 11 (bullseye)
+Kernel     : 5.10.0-21-amd64
+VM Type    : KVM
+IPv4/IPv6  : ✔ Online / ❌ Offline
+
+fio Disk Speed Tests (Mixed R/W 50/50) (Partition /dev/sdb1):
+---------------------------------
+Block Size | 4k            (IOPS) | 64k           (IOPS)
+  ------   | ---            ----  | ----           ----
+Read       | 1.05 MB/s      (262) | 14.00 MB/s     (219)
+Write      | 1.05 MB/s      (262) | 14.00 MB/s     (219)
+Total      | 2.10 MB/s      (524) | 28.00 MB/s     (438)
+           |                      |
+Block Size | 512k          (IOPS) | 1m            (IOPS)
+  ------   | ---            ----  | ----           ----
+Read       | 90.00 MB/s     (176) | 155.00 MB/s    (151)
+Write      | 90.00 MB/s     (175) | 155.00 MB/s    (151)
+Total      | 180.00 MB/s    (351) | 310.00 MB/s    (302)
+
+YABS completed in 3 min 48 sec

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YABS Result Assessment</title>
+    <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-inner">
+                <div>
+                    <h1>YABS Result Assessment</h1>
+                    <p class="header-sub">
+                        <a href="../">Run stats dashboard</a>
+                        &nbsp;&middot;&nbsp;
+                        <a href="https://github.com/masonr/yet-another-bench-script/wiki/Interpreting-Results"
+                           target="_blank" rel="noopener">Interpreting Results (wiki)</a>
+                    </p>
+                </div>
+                <div class="header-run">
+                    <code>curl -sL yabs.sh | bash</code>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- Input -->
+        <section class="chart-section">
+            <div class="chart-header">
+                <h2>Paste a YABS result</h2>
+                <span class="chart-meta">plain output or <code>-j</code> JSON</span>
+            </div>
+            <textarea id="yabs-input" rows="18" spellcheck="false"
+                placeholder="Paste the full YABS output or the -j JSON here"></textarea>
+            <div class="assess-controls">
+                <label class="assess-field">
+                    Sold storage
+                    <select id="sold-storage">
+                        <option value="unknown" selected>Unknown</option>
+                        <option value="hdd">HDD</option>
+                        <option value="ssd">SSD</option>
+                        <option value="nvme">NVMe</option>
+                    </select>
+                </label>
+                <label class="assess-field">
+                    Sold port
+                    <select id="sold-port">
+                        <option value="" selected>Unknown</option>
+                        <option value="100">100 Mbit/s</option>
+                        <option value="1000">1 Gbit/s</option>
+                        <option value="2500">2.5 Gbit/s</option>
+                        <option value="10000">10 Gbit/s</option>
+                    </select>
+                </label>
+                <button id="btn-assess" class="range-btn active">Assess</button>
+                <button id="btn-example" class="range-btn">Load example</button>
+                <button id="btn-clear" class="range-btn">Clear</button>
+            </div>
+            <p class="privacy-note">Runs entirely in your browser — nothing is uploaded.</p>
+        </section>
+
+        <!-- Results -->
+        <div id="results" hidden>
+            <div id="verdict" class="verdict"></div>
+
+            <div class="assess-grid">
+                <section class="chart-section assess-card" id="area-disk">
+                    <h3>Disk</h3>
+                    <p class="area-headline"></p>
+                    <ul class="findings"></ul>
+                </section>
+                <section class="chart-section assess-card" id="area-network">
+                    <h3>Network</h3>
+                    <p class="area-headline"></p>
+                    <ul class="findings"></ul>
+                </section>
+                <section class="chart-section assess-card" id="area-cpu">
+                    <h3>CPU</h3>
+                    <p class="area-headline"></p>
+                    <ul class="findings"></ul>
+                </section>
+                <section class="chart-section assess-card" id="area-context">
+                    <h3>Context</h3>
+                    <p class="area-headline"></p>
+                    <ul class="findings"></ul>
+                </section>
+            </div>
+
+            <section class="chart-section">
+                <details id="parsed-details">
+                    <summary>What the parser read</summary>
+                    <div id="parsed-body"></div>
+                </details>
+            </section>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <a href="../" class="footer-link">YABS Stats</a>
+            <span class="footer-sep">&middot;</span>
+            <a href="https://github.com/masonr/yet-another-bench-script" target="_blank" rel="noopener" class="footer-link">
+                YABS GitHub
+            </a>
+            <span class="footer-sep">&middot;</span>
+            <a href="https://github.com/masonr/yabs-stats" target="_blank" rel="noopener" class="footer-link">
+                YABS Stats GitHub
+            </a>
+        </div>
+    </footer>
+
+    <script src="../yabs-parse.js"></script>
+    <script src="../yabs-rules.js"></script>
+    <script src="../assess.js"></script>
+</body>
+</html>

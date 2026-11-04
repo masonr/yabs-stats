@@ -1,0 +1,48 @@
+# ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## #
+#              Yet-Another-Bench-Script              #
+#                     v2026-10-31                    #
+# https://github.com/masonr/yet-another-bench-script #
+# ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## #
+
+Sat Oct  3 13:55:19 UTC 2026
+
+Basic System Information:
+---------------------------------
+Uptime     : 27 days, 11 hours, 5 minutes
+Processor  : AMD EPYC 7443P 24-Core Processor
+CPU cores  : 4 @ 2844.000 MHz
+AES-NI     : ✔ Enabled
+VM-x/AMD-V : ✔ Enabled
+RAM        : 7.8 GiB
+Swap       : 1.0 GiB
+Disk       : 158.0 GiB
+Distro     : Debian GNU/Linux 12 (bookworm)
+Kernel     : 6.1.0-18-amd64
+VM Type    : KVM
+IPv4/IPv6  : ✔ Online / ✔ Online
+
+iperf3 Network Speed Tests (IPv4):
+---------------------------------
+Provider        | Location (Link)           | Send Speed      | Recv Speed      | Ping
+-----           | -----                     | ----            | ----            | ----
+Clouvider       | London, UK (10G)          | 296 Mbits/sec   | 305 Mbits/sec   | 10.9 ms
+Eranium         | Amsterdam, NL (100G)      | 301 Mbits/sec   | 298 Mbits/sec   | 3.7 ms
+Uztelecom       | Tashkent, UZ (10G)        | 289 Mbits/sec   | 311 Mbits/sec   | 92.4 ms
+Leaseweb        | Singapore, SG (10G)       | 278 Mbits/sec   | 295 Mbits/sec   | 178 ms
+Clouvider       | Los Angeles, CA, US (10G) | 282 Mbits/sec   | 291 Mbits/sec   | 143 ms
+Leaseweb        | NYC, NY, US (10G)         | 305 Mbits/sec   | 299 Mbits/sec   | 78.6 ms
+Edgoo           | Sao Paulo, BR (1G)        | 268 Mbits/sec   | 275 Mbits/sec   | 214 ms
+
+iperf3 Network Speed Tests (IPv6):
+---------------------------------
+Provider        | Location (Link)           | Send Speed      | Recv Speed      | Ping
+-----           | -----                     | ----            | ----            | ----
+Clouvider       | London, UK (10G)          | 901 Mbits/sec   | 912 Mbits/sec   | 11.1 ms
+Eranium         | Amsterdam, NL (100G)      | 918 Mbits/sec   | 925 Mbits/sec   | 3.8 ms
+Uztelecom       | Tashkent, UZ (10G)        | 876 Mbits/sec   | 902 Mbits/sec   | 92.9 ms
+Leaseweb        | Singapore, SG (10G)       | 861 Mbits/sec   | 889 Mbits/sec   | 179 ms
+Clouvider       | Los Angeles, CA, US (10G) | 854 Mbits/sec   | 872 Mbits/sec   | 144 ms
+Leaseweb        | NYC, NY, US (10G)         | 890 Mbits/sec   | 905 Mbits/sec   | 79.1 ms
+Edgoo           | Sao Paulo, BR (1G)        | 822 Mbits/sec   | 841 Mbits/sec   | 215 ms
+
+YABS completed in 7 min 36 sec

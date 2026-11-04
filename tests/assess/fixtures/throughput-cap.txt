@@ -1,0 +1,38 @@
+# ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## #
+#              Yet-Another-Bench-Script              #
+#                     v2026-10-31                    #
+# https://github.com/masonr/yet-another-bench-script #
+# ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## #
+
+Tue Sep  1 16:40:12 UTC 2026
+
+Basic System Information:
+---------------------------------
+Uptime     : 9 days, 1 hours, 52 minutes
+Processor  : AMD EPYC 7443P 24-Core Processor
+CPU cores  : 4 @ 2844.000 MHz
+AES-NI     : ✔ Enabled
+VM-x/AMD-V : ✔ Enabled
+RAM        : 7.8 GiB
+Swap       : 1.0 GiB
+Disk       : 158.0 GiB
+Distro     : Debian GNU/Linux 12 (bookworm)
+Kernel     : 6.1.0-18-amd64
+VM Type    : KVM
+IPv4/IPv6  : ✔ Online / ❌ Offline
+
+fio Disk Speed Tests (Mixed R/W 50/50) (Partition /dev/vda2):
+---------------------------------
+Block Size | 4k            (IOPS) | 64k           (IOPS)
+  ------   | ---            ----  | ----           ----
+Read       | 404.90 MB/s (101.2k) | 402.40 MB/s (6.3k)
+Write      | 406.57 MB/s (101.6k) | 407.52 MB/s (6.4k)
+Total      | 811.47 MB/s (202.8k) | 809.93 MB/s (12.7k)
+           |                      |
+Block Size | 512k          (IOPS) | 1m            (IOPS)
+  ------   | ---            ----  | ----           ----
+Read       | 381.08 MB/s (743)    | 389.50 MB/s (380)
+Write      | 393.54 MB/s (768)    | 408.20 MB/s (398)
+Total      | 774.62 MB/s (1.5k)   | 797.70 MB/s (778)
+
+YABS completed in 6 min 2 sec

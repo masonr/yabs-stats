@@ -1,0 +1,48 @@
+# ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## #
+#              Yet-Another-Bench-Script              #
+#                     v2026-10-31                    #
+# https://github.com/masonr/yet-another-bench-script #
+# ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## #
+
+Sun Oct  4 08:21:44 UTC 2026
+
+Basic System Information:
+---------------------------------
+Uptime     : 6 days, 20 hours, 37 minutes
+Processor  : Intel Xeon E-2388G
+CPU cores  : 4 @ 3200.000 MHz
+AES-NI     : ✔ Enabled
+VM-x/AMD-V : ✔ Enabled
+RAM        : 15.6 GiB
+Swap       : 0.0 KiB
+Disk       : 240.0 GiB
+Distro     : Ubuntu 24.04 LTS
+Kernel     : 6.8.0-31-generic
+VM Type    : KVM
+IPv4/IPv6  : ✔ Online / ✔ Online
+
+iperf3 Network Speed Tests (IPv4):
+---------------------------------
+Provider        | Location (Link)           | Send Speed      | Recv Speed      | Ping
+-----           | -----                     | ----            | ----            | ----
+Clouvider       | London, UK (10G)          | 940 Mbits/sec   | 935 Mbits/sec   | 9.4 ms
+Eranium         | Amsterdam, NL (100G)      | 938 Mbits/sec   | 941 Mbits/sec   | 4.2 ms
+Uztelecom       | Tashkent, UZ (10G)        | 512 Mbits/sec   | 618 Mbits/sec   | 95.2 ms
+Leaseweb        | Singapore, SG (10G)       | 310 Mbits/sec   | 402 Mbits/sec   | 181 ms
+Clouvider       | Los Angeles, CA, US (10G) | 405 Mbits/sec   | 478 Mbits/sec   | 140 ms
+Leaseweb        | NYC, NY, US (10G)         | 545 Mbits/sec   | 620 Mbits/sec   | 79.5 ms
+Edgoo           | Sao Paulo, BR (1G)        | 218 Mbits/sec   | 260 Mbits/sec   | 205 ms
+
+iperf3 Network Speed Tests (IPv6):
+---------------------------------
+Provider        | Location (Link)           | Send Speed      | Recv Speed      | Ping
+-----           | -----                     | ----            | ----            | ----
+Clouvider       | London, UK (10G)          | busy            | busy            | 9.5 ms
+Eranium         | Amsterdam, NL (100G)      | busy            | busy            | 4.3 ms
+Uztelecom       | Tashkent, UZ (10G)        | busy            | busy            | 95.4 ms
+Leaseweb        | Singapore, SG (10G)       | busy            | busy            | 182 ms
+Clouvider       | Los Angeles, CA, US (10G) | busy            | busy            | 141 ms
+Leaseweb        | NYC, NY, US (10G)         | busy            | busy            | 79.8 ms
+Edgoo           | Sao Paulo, BR (1G)        | busy            | busy            | 206 ms
+
+YABS completed in 8 min 1 sec

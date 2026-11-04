@@ -1,0 +1,31 @@
+# ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## #
+#              Yet-Another-Bench-Script              #
+#                     v2026-10-31                    #
+# https://github.com/masonr/yet-another-bench-script #
+# ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## #
+
+Fri May  8 11:32:19 UTC 2026
+
+Basic System Information:
+---------------------------------
+Uptime     : 14 days, 2 hours, 33 minutes
+Processor  : QEMU Virtual CPU version 2.5+
+CPU cores  : 1 @ 2793.000 MHz
+AES-NI     : ✔ Enabled
+VM-x/AMD-V : ❌ Disabled
+RAM        : 1.8 GiB
+Swap       : 0.0 KiB
+Disk       : 24.4 GiB
+Distro     : Alpine Linux v3.19
+Kernel     : 6.6.0-0-virt
+VM Type    : KVM
+IPv4/IPv6  : ✔ Online / ❌ Offline
+
+dd Sequential Disk Speed Tests:
+---------------------------------
+       | Test 1     | Test 2     | Test 3     | Avg
+       |            |            |            |
+Write  | 178 MB/s   | 181 MB/s   | 180 MB/s   | 180 MB/s
+Read   | 3.4 GB/s   | 3.5 GB/s   | 3.6 GB/s   | 3.5 GB/s
+
+YABS completed in 41 sec

@@ -1,0 +1,36 @@
+# ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## #
+#              Yet-Another-Bench-Script              #
+#                     v2026-10-31                    #
+# https://github.com/masonr/yet-another-bench-script #
+# ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## #
+
+Sat Jun 20 02:14:55 AM UTC 2026
+
+Basic System Information:
+---------------------------------
+Uptime     : 3 days, 7 hours, 51 minutes
+Processor  : Intel Xeon E-2388G
+CPU cores  : 4 @ 3200.000 MHz
+AES-NI     : ✔ Enabled
+VM-x/AMD-V : ✔ Enabled
+RAM        : 15.6 GiB
+Swap       : 0.0 KiB
+Disk       : 240.0 GiB
+Distro     : Ubuntu 24.04 LTS
+Kernel     : 6.8.0-31-generic
+VM Type    : KVM
+IPv4/IPv6  : ✔ Online / ❌ Offline
+
+iperf3 Network Speed Tests (IPv4):
+---------------------------------
+Provider        | Location (Link)           | Send Speed      | Recv Speed      | Ping
+-----           | -----                     | ----            | ----            | ----
+Clouvider       | London, UK (10G)          | busy            | busy            | 9.8 ms
+Eranium         | Amsterdam, NL (100G)      | busy            | busy            | 4.1 ms
+Uztelecom       | Tashkent, UZ (10G)        | busy            | busy            | 88.2 ms
+Leaseweb        | Singapore, SG (10G)       | busy            | busy            | 174 ms
+Clouvider       | Los Angeles, CA, US (10G) | busy            | busy            | 139 ms
+Leaseweb        | NYC, NY, US (10G)         | busy            | busy            | 76.4 ms
+Edgoo           | Sao Paulo, BR (1G)        | busy            | busy            | 202 ms
+
+YABS completed in 6 min 14 sec

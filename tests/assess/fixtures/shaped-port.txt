@@ -1,0 +1,36 @@
+# ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## #
+#              Yet-Another-Bench-Script              #
+#                     v2026-10-31                    #
+# https://github.com/masonr/yet-another-bench-script #
+# ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## #
+
+Wed Aug  5 14:26:10 UTC 2026
+
+Basic System Information:
+---------------------------------
+Uptime     : 12 days, 6 hours, 40 minutes
+Processor  : AMD EPYC 7543P 32-Core Processor
+CPU cores  : 2 @ 2794.000 MHz
+AES-NI     : ✔ Enabled
+VM-x/AMD-V : ✔ Enabled
+RAM        : 3.8 GiB
+Swap       : 0.0 KiB
+Disk       : 78.5 GiB
+Distro     : Debian GNU/Linux 12 (bookworm)
+Kernel     : 6.1.0-31-amd64
+VM Type    : KVM
+IPv4/IPv6  : ✔ Online / ❌ Offline
+
+iperf3 Network Speed Tests (IPv4):
+---------------------------------
+Provider        | Location (Link)           | Send Speed      | Recv Speed      | Ping
+-----           | -----                     | ----            | ----            | ----
+Clouvider       | London, UK (10G)          | 252 Mbits/sec   | 248 Mbits/sec   | 5.4 ms
+Eranium         | Amsterdam, NL (100G)      | 247 Mbits/sec   | 253 Mbits/sec   | 8.7 ms
+Uztelecom       | Tashkent, UZ (10G)        | 245 Mbits/sec   | 251 Mbits/sec   | 12.1 ms
+Leaseweb        | NYC, NY, US (10G)         | 249 Mbits/sec   | 246 Mbits/sec   | 18.3 ms
+Leaseweb        | Singapore, SG (10G)       | 251 Mbits/sec   | 255 Mbits/sec   | 91.5 ms
+Clouvider       | Los Angeles, CA, US (10G) | 253 Mbits/sec   | 250 Mbits/sec   | 143 ms
+Edgoo           | Sao Paulo, BR (1G)        | 248 Mbits/sec   | 254 Mbits/sec   | 196 ms
+
+YABS completed in 5 min 12 sec

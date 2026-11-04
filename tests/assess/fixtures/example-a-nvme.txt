@@ -1,0 +1,56 @@
+# ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## #
+#              Yet-Another-Bench-Script              #
+#                     v2022-06-04                    #
+# https://github.com/masonr/yet-another-bench-script #
+# ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## #
+
+Wed Jun  1 12:00:00 UTC 2022
+
+Basic System Information:
+---------------------------------
+Uptime     : 32 days, 4 hours, 11 minutes
+Processor  : AMD Ryzen 5 3600 6-Core Processor
+CPU cores  : 12 @ 4200.000 MHz
+AES-NI     : ✔ Enabled
+VM-x/AMD-V : ✔ Enabled
+RAM        : 62.7 GiB
+Swap       : 0.0 KiB
+Disk       : 890.0 GiB
+Distro     : Ubuntu 20.04.4 LTS
+Kernel     : 5.4.0-117-generic
+VM Type    : NONE
+IPv4/IPv6  : ✔ Online / ❌ Offline
+
+fio Disk Speed Tests (Mixed R/W 50/50) (Partition /dev/md2):
+---------------------------------
+Block Size | 4k            (IOPS) | 64k           (IOPS)
+  ------   | ---            ----  | ----           ----
+Read       | 667.00 MB/s (166.8k) | 1.00 GB/s    (15.6k)
+Write      | 669.00 MB/s (167.2k) | 1.02 GB/s    (15.9k)
+Total      | 1.33 GB/s   (334.0k) | 2.02 GB/s    (31.5k)
+           |                      |
+Block Size | 512k          (IOPS) | 1m            (IOPS)
+  ------   | ---            ----  | ----           ----
+Read       | 1.10 GB/s     (2.1k) | 1.12 GB/s     (1.0k)
+Write      | 1.12 GB/s     (2.2k) | 1.19 GB/s     (1.1k)
+Total      | 2.22 GB/s     (4.3k) | 2.32 GB/s     (2.2k)
+
+iperf3 Network Speed Tests (IPv4):
+---------------------------------
+Provider        | Location (Link)           | Send Speed      | Recv Speed      | Ping
+-----           | -----                     | ----            | ----            | ----
+Clouvider       | London, UK (10G)          | 920 Mbits/sec   | 930 Mbits/sec   | 8.12 ms
+Eranium         | Amsterdam, NL (100G)      | 913 Mbits/sec   | 925 Mbits/sec   | 11.4 ms
+Leaseweb        | NYC, NY, US (10G)         | 620 Mbits/sec   | 560 Mbits/sec   | 78.5 ms
+Clouvider       | Los Angeles, CA, US (10G) | 410 Mbits/sec   | 310 Mbits/sec   | 139 ms
+Edgoo           | Sao Paulo, BR (1G)        | 210 Mbits/sec   | 185 Mbits/sec   | 205 ms
+
+Geekbench 5 Benchmark Test:
+---------------------------------
+Test            | Value
+                |
+Single Core     | 1341
+Multi Core      | 7663
+Full Test       | https://browser.geekbench.com/v5/cpu/15234567
+
+YABS completed in 8 min 41 sec

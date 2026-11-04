@@ -1,0 +1,36 @@
+# ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## #
+#              Yet-Another-Bench-Script              #
+#                     v2026-10-31                    #
+# https://github.com/masonr/yet-another-bench-script #
+# ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## #
+
+Thu Oct  8 03:30:51 UTC 2026
+
+Basic System Information:
+---------------------------------
+Uptime     : 60 days, 9 hours, 12 minutes
+Processor  : Intel Xeon E-2236
+CPU cores  : 2 @ 3400.000 MHz
+AES-NI     : ✔ Enabled
+VM-x/AMD-V : ✔ Enabled
+RAM        : 7.6 GiB
+Swap       : 0.0 KiB
+Disk       : 110.0 GiB
+Distro     : Ubuntu 22.04.5 LTS
+Kernel     : 5.15.0-125-generic
+VM Type    : KVM
+IPv4/IPv6  : ✔ Online / ❌ Offline
+
+iperf3 Network Speed Tests (IPv4):
+---------------------------------
+Provider        | Location (Link)           | Send Speed      | Recv Speed      | Ping
+-----           | -----                     | ----            | ----            | ----
+Clouvider       | London, UK (10G)          | 640 Mbits/sec   | 720 Mbits/sec   | 95.1 ms
+Eranium         | Amsterdam, NL (100G)      | 655 Mbits/sec   | 702 Mbits/sec   | 102.4 ms
+Uztelecom       | Tashkent, UZ (10G)        | 590 Mbits/sec   | 668 Mbits/sec   | 118.7 ms
+Leaseweb        | NYC, NY, US (10G)         | 710 Mbits/sec   | 745 Mbits/sec   | 139.2 ms
+Clouvider       | Los Angeles, CA, US (10G) | 685 Mbits/sec   | 701 Mbits/sec   | 164.5 ms
+Leaseweb        | Singapore, SG (10G)       | 530 Mbits/sec   | 612 Mbits/sec   | 181.3 ms
+Edgoo           | Sao Paulo, BR (1G)        | 480 Mbits/sec   | 540 Mbits/sec   | 212.8 ms
+
+YABS completed in 5 min 22 sec

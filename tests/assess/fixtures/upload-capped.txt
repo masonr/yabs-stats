@@ -1,0 +1,33 @@
+# ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## #
+#              Yet-Another-Bench-Script              #
+#                     v2026-10-31                    #
+# https://github.com/masonr/yet-another-bench-script #
+# ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## #
+
+Thu Jul  2 21:08:37 UTC 2026
+
+Basic System Information:
+---------------------------------
+Uptime     : 41 days, 12 hours, 18 minutes
+Processor  : AMD EPYC 7443P 24-Core Processor
+CPU cores  : 4 @ 2844.000 MHz
+AES-NI     : ✔ Enabled
+VM-x/AMD-V : ✔ Enabled
+RAM        : 7.8 GiB
+Swap       : 1.0 GiB
+Disk       : 158.0 GiB
+Distro     : Debian GNU/Linux 12 (bookworm)
+Kernel     : 6.1.0-18-amd64
+VM Type    : KVM
+IPv4/IPv6  : ✔ Online / ❌ Offline
+
+iperf3 Network Speed Tests (IPv4):
+---------------------------------
+Provider        | Location (Link)           | Send Speed      | Recv Speed      | Ping
+-----           | -----                     | ----            | ----            | ----
+Clouvider       | London, UK (10G)          | 36.2 Mbits/sec  | 348 Mbits/sec   | 9.1 ms
+Eranium         | Amsterdam, NL (100G)      | 35.8 Mbits/sec  | 372 Mbits/sec   | 4.4 ms
+Leaseweb        | NYC, NY, US (10G)         | 36.1 Mbits/sec  | 305 Mbits/sec   | 76.2 ms
+Clouvider       | Los Angeles, CA, US (10G) | 35.9 Mbits/sec  | 318 Mbits/sec   | 141 ms
+
+YABS completed in 5 min 47 sec

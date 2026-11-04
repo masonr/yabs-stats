@@ -1,0 +1,53 @@
+# ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## #
+#              Yet-Another-Bench-Script              #
+#                     v2020-05-06                    #
+# https://github.com/masonr/yet-another-bench-script #
+# ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## #
+
+Mon Aug 17 15:44:22 UTC 2020
+
+Basic System Information:
+---------------------------------
+Uptime     : 10 days, 3 hours, 4 minutes
+Processor  : Intel Xeon E5-2650 v2
+CPU cores  : 4 @ 2599.998 MHz
+AES-NI     : ✔ Enabled
+RAM        : 3.8 GB
+Swap       : 512 MB
+Disk       : 79 GB
+Distro     : CentOS Linux 7 (Core)
+Kernel     : 3.10.0-1127.el7.x86_64
+IPv4/IPv6  : ✔ Online / ❌ Offline
+
+fio Disk Speed Tests (Mixed R/W 50/50):
+---------------------------------
+Block Size | 4k            (IOPS) | 64k           (IOPS)
+  ------   | ---            ----  | ----           ----
+Read       | 22650 KB/s    (5.6k) | 148500 KB/s   (2.3k)
+Write      | 22700 KB/s    (5.7k) | 149000 KB/s   (2.3k)
+Total      | 45350 KB/s   (11.3k) | 297500 KB/s   (4.6k)
+           |                      |
+Block Size | 512k          (IOPS) | 1m            (IOPS)
+  ------   | ---            ----  | ----           ----
+Read       | 246000 KB/s    (480) | 251000 KB/s    (245)
+Write      | 259000 KB/s    (505) | 264000 KB/s    (257)
+Total      | 505000 KB/s    (985) | 515000 KB/s    (502)
+
+iperf3 Network Speed Tests:
+---------------------------------
+Provider        | Location (Link)           | Send Speed      | Recv Speed
+-----           | -----                     | ----            | ----
+Online.net      | Paris, FR (10G)           | 845 Mbits/sec   | 812 Mbits/sec
+Clouvider       | London, UK (10G)          | 912 Mbits/sec   | 933 Mbits/sec
+Leaseweb        | NYC, NY, US (10G)         | 445 Mbits/sec   | 502 Mbits/sec
+Leaseweb        | Singapore, SG (10G)       | 188 Mbits/sec   | 241 Mbits/sec
+
+Geekbench 5 Benchmark Test:
+---------------------------------
+Test            | Value
+                |
+Single Core     | 712
+Multi Core      | 2218
+Full Test       | https://browser.geekbench.com/v5/cpu/3456789
+
+YABS completed in 11 min 5 sec
