@@ -1,12 +1,12 @@
 {
-  "generated": "2026-11-14T06:59:25Z",
+  "generated": "2026-11-14T14:29:11Z",
   "summary": {
-    "all_time": 2750345,
-    "today": 989,
-    "last7": 20976,
-    "last30": 91927,
+    "all_time": 2751380,
+    "today": 2024,
+    "last7": 22011,
+    "last30": 92962,
     "since": "2025-07-04",
-    "updated": "2026-11-14T06:59:25Z"
+    "updated": "2026-11-14T14:29:11Z"
   },
   "history": [
     {
@@ -116279,9 +116279,9 @@
     },
     {
       "date": "2026-11-14",
-      "requests": 989,
-      "unique_ips": 614,
-      "bytes": 696142,
+      "requests": 2024,
+      "unique_ips": 964,
+      "bytes": 1424269,
       "countries": [
         {
           "country": "AE",
@@ -116293,31 +116293,35 @@
         },
         {
           "country": "AU",
-          "requests": 6
+          "requests": 15
+        },
+        {
+          "country": "BE",
+          "requests": 0
         },
         {
           "country": "BR",
-          "requests": 6
+          "requests": 9
         },
         {
           "country": "CA",
-          "requests": 7
+          "requests": 12
         },
         {
           "country": "CH",
-          "requests": 1
+          "requests": 4
         },
         {
           "country": "CL",
-          "requests": 11
+          "requests": 24
         },
         {
           "country": "CN",
-          "requests": 8
+          "requests": 26
         },
         {
           "country": "DE",
-          "requests": 103
+          "requests": 207
         },
         {
           "country": "EE",
@@ -116325,43 +116329,55 @@
         },
         {
           "country": "ES",
-          "requests": 1
-        },
-        {
-          "country": "FI",
-          "requests": 72
-        },
-        {
-          "country": "FR",
-          "requests": 28
-        },
-        {
-          "country": "GB",
-          "requests": 22
-        },
-        {
-          "country": "HK",
-          "requests": 43
-        },
-        {
-          "country": "ID",
-          "requests": 13
-        },
-        {
-          "country": "IN",
-          "requests": 4
-        },
-        {
-          "country": "IT",
           "requests": 2
         },
         {
-          "country": "JP",
+          "country": "FI",
+          "requests": 153
+        },
+        {
+          "country": "FR",
+          "requests": 58
+        },
+        {
+          "country": "GB",
+          "requests": 41
+        },
+        {
+          "country": "GR",
+          "requests": 1
+        },
+        {
+          "country": "HK",
+          "requests": 95
+        },
+        {
+          "country": "ID",
           "requests": 23
         },
         {
+          "country": "IN",
+          "requests": 6
+        },
+        {
+          "country": "IT",
+          "requests": 4
+        },
+        {
+          "country": "JP",
+          "requests": 38
+        },
+        {
           "country": "KR",
-          "requests": 46
+          "requests": 96
+        },
+        {
+          "country": "KZ",
+          "requests": 1
+        },
+        {
+          "country": "LT",
+          "requests": 1
         },
         {
           "country": "MX",
@@ -116369,43 +116385,63 @@
         },
         {
           "country": "NL",
-          "requests": 53
+          "requests": 108
         },
         {
           "country": "NO",
           "requests": 2
         },
         {
+          "country": "PH",
+          "requests": 0
+        },
+        {
           "country": "PL",
-          "requests": 3
+          "requests": 9
         },
         {
           "country": "RU",
-          "requests": 4
+          "requests": 20
+        },
+        {
+          "country": "SE",
+          "requests": 0
         },
         {
           "country": "SG",
-          "requests": 48
+          "requests": 113
+        },
+        {
+          "country": "SI",
+          "requests": 1
+        },
+        {
+          "country": "TH",
+          "requests": 1
         },
         {
           "country": "TR",
-          "requests": 3
+          "requests": 7
         },
         {
           "country": "TW",
+          "requests": 2
+        },
+        {
+          "country": "UA",
           "requests": 1
         },
         {
           "country": "US",
-          "requests": 475
+          "requests": 934
         },
         {
           "country": "VN",
-          "requests": 2
+          "requests": 7
         },
         {
           "country": "ZA",
-          "requests": 0
+          "requests": 1
         },
         {
           "country": "T1",
@@ -116418,112 +116454,112 @@
     {
       "country": "US",
       "country_code": "US",
-      "requests": 37762
+      "requests": 38221
     },
     {
       "country": "DE",
       "country_code": "DE",
-      "requests": 12476
+      "requests": 12580
     },
     {
       "country": "SG",
       "country_code": "SG",
-      "requests": 5620
+      "requests": 5685
     },
     {
       "country": "HK",
       "country_code": "HK",
-      "requests": 4851
+      "requests": 4903
     },
     {
       "country": "KR",
       "country_code": "KR",
-      "requests": 4739
+      "requests": 4789
     },
     {
       "country": "FI",
       "country_code": "FI",
-      "requests": 4271
+      "requests": 4352
     },
     {
       "country": "NL",
       "country_code": "NL",
-      "requests": 3012
+      "requests": 3067
     },
     {
       "country": "JP",
       "country_code": "JP",
-      "requests": 2614
+      "requests": 2629
     },
     {
       "country": "FR",
       "country_code": "FR",
-      "requests": 2028
+      "requests": 2058
     },
     {
       "country": "GB",
       "country_code": "GB",
-      "requests": 1925
+      "requests": 1944
     },
     {
       "country": "CN",
       "country_code": "CN",
-      "requests": 1921
+      "requests": 1939
     },
     {
       "country": "VN",
       "country_code": "VN",
-      "requests": 1523
+      "requests": 1528
     },
     {
       "country": "RU",
       "country_code": "RU",
-      "requests": 1049
+      "requests": 1065
     },
     {
       "country": "CA",
       "country_code": "CA",
-      "requests": 926
+      "requests": 931
     },
     {
       "country": "AU",
       "country_code": "AU",
-      "requests": 811
+      "requests": 820
     },
     {
       "country": "ID",
       "country_code": "ID",
-      "requests": 794
+      "requests": 804
     },
     {
       "country": "IN",
       "country_code": "IN",
-      "requests": 643
+      "requests": 645
     },
     {
       "country": "CL",
       "country_code": "CL",
-      "requests": 611
+      "requests": 624
     },
     {
       "country": "BR",
       "country_code": "BR",
-      "requests": 539
+      "requests": 542
     },
     {
       "country": "PL",
       "country_code": "PL",
-      "requests": 501
+      "requests": 507
     },
     {
       "country": "CH",
       "country_code": "CH",
-      "requests": 233
+      "requests": 236
     },
     {
       "country": "IT",
       "country_code": "IT",
-      "requests": 220
+      "requests": 222
     },
     {
       "country": "SE",
@@ -116533,12 +116569,12 @@
     {
       "country": "TR",
       "country_code": "TR",
-      "requests": 208
+      "requests": 212
     },
     {
       "country": "ES",
       "country_code": "ES",
-      "requests": 204
+      "requests": 205
     },
     {
       "country": "AT",
@@ -116563,7 +116599,7 @@
     {
       "country": "TW",
       "country_code": "TW",
-      "requests": 96
+      "requests": 97
     },
     {
       "country": "BG",
@@ -116583,12 +116619,12 @@
     {
       "country": "KZ",
       "country_code": "KZ",
-      "requests": 77
+      "requests": 78
     },
     {
       "country": "LT",
       "country_code": "LT",
-      "requests": 76
+      "requests": 77
     },
     {
       "country": "NO",
@@ -116603,7 +116639,7 @@
     {
       "country": "GR",
       "country_code": "GR",
-      "requests": 68
+      "requests": 69
     },
     {
       "country": "BD",
@@ -116638,7 +116674,7 @@
     {
       "country": "UA",
       "country_code": "UA",
-      "requests": 46
+      "requests": 47
     },
     {
       "country": "SA",
@@ -116648,12 +116684,12 @@
     {
       "country": "ZA",
       "country_code": "ZA",
-      "requests": 42
+      "requests": 43
     },
     {
       "country": "TH",
       "country_code": "TH",
-      "requests": 38
+      "requests": 39
     },
     {
       "country": "AM",
@@ -116746,13 +116782,13 @@
       "requests": 11
     },
     {
-      "country": "MA",
-      "country_code": "MA",
-      "requests": 9
-    },
-    {
       "country": "SI",
       "country_code": "SI",
+      "requests": 10
+    },
+    {
+      "country": "MA",
+      "country_code": "MA",
       "requests": 9
     },
     {
@@ -117032,46 +117068,6 @@
     }
   ],
   "hourly": [
-    {
-      "datetime": "2026-11-11T07:00:00Z",
-      "requests": 150,
-      "unique_ips": 146
-    },
-    {
-      "datetime": "2026-11-11T08:00:00Z",
-      "requests": 218,
-      "unique_ips": 149
-    },
-    {
-      "datetime": "2026-11-11T09:00:00Z",
-      "requests": 149,
-      "unique_ips": 150
-    },
-    {
-      "datetime": "2026-11-11T10:00:00Z",
-      "requests": 129,
-      "unique_ips": 115
-    },
-    {
-      "datetime": "2026-11-11T11:00:00Z",
-      "requests": 141,
-      "unique_ips": 134
-    },
-    {
-      "datetime": "2026-11-11T12:00:00Z",
-      "requests": 147,
-      "unique_ips": 138
-    },
-    {
-      "datetime": "2026-11-11T13:00:00Z",
-      "requests": 181,
-      "unique_ips": 155
-    },
-    {
-      "datetime": "2026-11-11T14:00:00Z",
-      "requests": 151,
-      "unique_ips": 141
-    },
     {
       "datetime": "2026-11-11T15:00:00Z",
       "requests": 210,
@@ -117389,18 +117385,58 @@
     },
     {
       "datetime": "2026-11-14T06:00:00Z",
-      "requests": 144,
+      "requests": 145,
+      "unique_ips": 123
+    },
+    {
+      "datetime": "2026-11-14T07:00:00Z",
+      "requests": 125,
+      "unique_ips": 138
+    },
+    {
+      "datetime": "2026-11-14T08:00:00Z",
+      "requests": 174,
       "unique_ips": 116
+    },
+    {
+      "datetime": "2026-11-14T09:00:00Z",
+      "requests": 131,
+      "unique_ips": 134
+    },
+    {
+      "datetime": "2026-11-14T10:00:00Z",
+      "requests": 127,
+      "unique_ips": 117
+    },
+    {
+      "datetime": "2026-11-14T11:00:00Z",
+      "requests": 119,
+      "unique_ips": 110
+    },
+    {
+      "datetime": "2026-11-14T12:00:00Z",
+      "requests": 134,
+      "unique_ips": 132
+    },
+    {
+      "datetime": "2026-11-14T13:00:00Z",
+      "requests": 145,
+      "unique_ips": 133
+    },
+    {
+      "datetime": "2026-11-14T14:00:00Z",
+      "requests": 77,
+      "unique_ips": 75
     }
   ],
   "activity": [
     {
       "source": "eyeball",
-      "requests": 36072
+      "requests": 37435
     },
     {
       "source": "edgeWorkerFetch",
-      "requests": 17
+      "requests": 21
     }
   ],
   "excluded": {
@@ -117411,7 +117447,7 @@
       "2026-11-11": 773,
       "2026-11-12": 796,
       "2026-11-13": 1496,
-      "2026-11-14": 1663
+      "2026-11-14": 1997
     },
     "flagged_ips": [
       "192.253.209.34",
